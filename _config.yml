@@ -1,0 +1,6 @@
+title: "Mein Blog"
+description: "Notizen, Strukturen, Praxis"
+theme: minima
+defaults:
+- scope: path: "_drafts"
+values: published: false
