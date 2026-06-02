@@ -97,6 +97,13 @@
             max-width: 300px;
             pointer-events: all;
             backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .ui-panel.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
         }
 
         .ui-panel h2 {
@@ -155,6 +162,13 @@
             max-width: 350px;
             pointer-events: all;
             backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .info-panel.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-20px);
         }
 
         .info-panel h3 {
@@ -181,6 +195,13 @@
             font-size: 0.85em;
             pointer-events: all;
             backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .legend.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
         }
 
         .legend-item {
@@ -201,8 +222,32 @@
             50% { opacity: 1; }
         }
 
-        .sun-active {
-            animation: pulse 2s ease-in-out infinite;
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.8)); }
+            50% { filter: drop-shadow(0 0 40px rgba(255, 200, 0, 1)); }
+        }
+
+        @keyframes vortex {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes warp-in {
+            0% { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .sun-full {
+            animation: glow 2s ease-in-out infinite;
         }
 
         h1 {
@@ -215,6 +260,187 @@
             text-shadow: 0 0 20px rgba(255, 200, 0, 0.8);
             color: #ffc800;
             pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        h1.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Reality Transition Modal */
+        #realityPortal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 200, 0, 0.5) 0%, rgba(0, 0, 0, 1) 70%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: warp-in 1s ease-out;
+        }
+
+        #realityPortal.active {
+            display: flex;
+        }
+
+        .portal-content {
+            text-align: center;
+            font-size: 1.5em;
+            animation: pulse 1.5s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 200, 0, 0.9);
+        }
+
+        /* New Reality Screen */
+        #newReality {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000 0%, #1a1a3e 50%, #0a0a2e 100%);
+            display: none;
+            z-index: 1001;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        #newReality.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        #newReality.visible {
+            opacity: 1;
+        }
+
+        .reality-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .reality-title {
+            font-size: 3em;
+            color: #ffffff;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            animation: glow 2s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        .reality-description {
+            font-size: 1.3em;
+            max-width: 600px;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .fractal-unity {
+            width: 300px;
+            height: 300px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+            animation: vortex 8s linear infinite;
+            position: relative;
+            margin-top: 30px;
+        }
+
+        .fractal-unity::before {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: vortex -6s linear infinite;
+        }
+
+        .fractal-unity::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: vortex 4s linear infinite;
+        }
+
+        .center-point {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+            z-index: 10;
+        }
+
+        .return-button {
+            background: linear-gradient(135deg, #00ffff 0%, #0088ff 100%);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
+        }
+
+        .return-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(0, 200, 255, 0.8);
+        }
+
+        .sun-ready {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 200, 0, 0.8);
+            border-radius: 10px;
+            padding: 15px 30px;
+            z-index: 100;
+            pointer-events: all;
+            backdrop-filter: blur(10px);
+            display: none;
+            opacity: 0;
+            transition: all 0.3s;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        .sun-ready.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .sun-ready-text {
+            color: #ffc800;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-shadow: 0 0 10px rgba(255, 200, 0, 0.8);
+        }
+
+        .sun-ready-hint {
+            color: rgba(255, 200, 0, 0.7);
+            font-size: 0.9em;
+            margin-top: 8px;
         }
     </style>
 </head>
@@ -230,6 +456,7 @@
         <div class="info-text">
             <p>Dies ist dein persönliches Spiegelkabinett. Jede Scherbe stellt eine Kategorie deiner Realität dar.</p>
             <p style="margin-top: 10px;"><strong>Erkunde</strong> die Fragmente und beobachte, wie sie sich verbinden - das Spinnennetz wird zur schwarzen Sonne! ☀️</p>
+            <p style="margin-top: 10px; font-size: 0.8em; opacity: 0.7;">Wenn die Schwarze Sonne vollständig entwickelt ist, betritt ihr Energiefeld und gelange in eine neue Realität frei von Illusionen...</p>
         </div>
     </div>
 
@@ -257,19 +484,64 @@
         </div>
     </div>
 
+    <div class="sun-ready" id="sunReady">
+        <div class="sun-ready-text">⚡ Die Schwarze Sonne ist vollständig entwickelt!</div>
+        <div class="sun-ready-hint">Klicke auf die Sonne, um die neue Realität zu betreten...</div>
+    </div>
+
+    <div id="realityPortal">
+        <div class="portal-content">
+            ✨ Betritt das Energiefeld der Schwarzen Sonne... ✨
+        </div>
+    </div>
+
+    <div id="newReality">
+        <div class="reality-content">
+            <div class="reality-title">∞ Fraktale Einheit ∞</div>
+            
+            <div class="reality-description">
+                Du hast die Illusion durchdrungen.<br>
+                Die zerbrochenen Spiegel sind vereinigt.<br>
+                <strong>Dies ist die wahre Realität - frei von Illusionen.</strong>
+            </div>
+
+            <div class="fractal-unity">
+                <div class="center-point"></div>
+            </div>
+
+            <div class="reality-description" style="font-size: 1.1em; margin-top: 40px;">
+                Die Schwarze Sonne vereint alle Fragmente deiner Wahrnehmung<br>
+                zu einer vollständigen Ganzheit.
+            </div>
+
+            <button class="return-button" onclick="returnToReality()">← Zurück zur Fragmentierten Realität</button>
+        </div>
+    </div>
+
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const container = document.getElementById('container');
         const fragmentForm = document.getElementById('fragmentForm');
+        const realityPortal = document.getElementById('realityPortal');
+        const newReality = document.getElementById('newReality');
+        const sunReady = document.getElementById('sunReady');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         let fragments = [];
         let connections = [];
-        let blackSun = { x: canvas.width / 2, y: canvas.height / 2, radius: 50, energy: 0 };
+        let blackSun = { 
+            x: canvas.width / 2, 
+            y: canvas.height / 2, 
+            radius: 50, 
+            energy: 0,
+            maxEnergy: 2,
+            isClickable: false 
+        };
         let exploredCount = 0;
+        let maxFragments = 5; // Initiale Anzahl
 
         // Fragment Klasse
         class Fragment {
@@ -308,6 +580,7 @@
             }
 
             explore() {
+                if (this.explored) return;
                 this.explored = true;
                 exploredCount++;
                 this.element.classList.add('active');
@@ -320,7 +593,10 @@
                 });
 
                 // Stärke die schwarze Sonne
-                blackSun.energy = Math.min(exploredCount * 0.1, 2);
+                blackSun.energy = Math.min(exploredCount / maxFragments * blackSun.maxEnergy, blackSun.maxEnergy);
+
+                // Überprüfe ob Schwarze Sonne vollständig ist
+                checkSunFullyDeveloped();
             }
 
             highlight() {
@@ -357,7 +633,6 @@
                 ctx.setLineDash([]);
                 ctx.globalAlpha = 1;
 
-                // Erhöhe Opacity schrittweise
                 if (this.opacity < this.maxOpacity) {
                     this.opacity += 0.01;
                 }
@@ -376,7 +651,6 @@
             ctx.arc(blackSun.x, blackSun.y, blackSun.radius, 0, Math.PI * 2);
             ctx.fill();
 
-            // Äußerer Glanz wenn aktiv
             if (blackSun.energy > 0) {
                 ctx.strokeStyle = `rgba(255, 200, 0, ${blackSun.energy * 0.3})`;
                 ctx.lineWidth = 3;
@@ -384,21 +658,88 @@
                 ctx.arc(blackSun.x, blackSun.y, blackSun.radius + 10, 0, Math.PI * 2);
                 ctx.stroke();
             }
+
+            // Wenn vollständig entwickelt, mache sie klickbar
+            if (blackSun.isClickable) {
+                ctx.strokeStyle = `rgba(255, 200, 0, 0.6)`;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(blackSun.x, blackSun.y, blackSun.radius + 20, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+        }
+
+        // Überprüfe ob Schwarze Sonne vollständig ist
+        function checkSunFullyDeveloped() {
+            if (exploredCount >= maxFragments && !blackSun.isClickable) {
+                blackSun.isClickable = true;
+                document.querySelector('h1').textContent = '🪞 Spiegelkabinett - Neue Realität wartet';
+                sunReady.classList.add('visible');
+                
+                // Verstecke UI-Elemente
+                document.querySelector('.info-panel').classList.add('hidden');
+                document.querySelector('.ui-panel').classList.add('hidden');
+                document.querySelector('.legend').classList.add('hidden');
+            }
+        }
+
+        // Canvas Click Handler für Schwarze Sonne
+        canvas.addEventListener('click', (e) => {
+            if (!blackSun.isClickable) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            const distance = Math.sqrt(
+                Math.pow(mouseX - blackSun.x, 2) + 
+                Math.pow(mouseY - blackSun.y, 2)
+            );
+
+            if (distance < blackSun.radius + 30) {
+                enterNewReality();
+            }
+        });
+
+        // Betritt die neue Realität
+        function enterNewReality() {
+            realityPortal.classList.add('active');
+            
+            setTimeout(() => {
+                realityPortal.classList.remove('active');
+                canvas.style.display = 'none';
+                document.querySelector('.container').style.display = 'none';
+                document.querySelector('h1').classList.add('hidden');
+                sunReady.classList.remove('visible');
+                
+                newReality.classList.add('active');
+                setTimeout(() => {
+                    newReality.classList.add('visible');
+                }, 100);
+            }, 2000);
+        }
+
+        // Zurück zur fragmentierten Realität
+        function returnToReality() {
+            newReality.classList.remove('visible');
+            
+            setTimeout(() => {
+                newReality.classList.remove('active');
+                canvas.style.display = 'block';
+                document.querySelector('.container').style.display = 'block';
+                document.querySelector('h1').classList.remove('hidden');
+                sunReady.classList.add('visible');
+            }, 500);
         }
 
         // Animation Loop
         function animate() {
-            // Canvas löschen
             ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Verbindungen zeichnen
             connections.forEach(conn => conn.draw());
-
-            // Schwarze Sonne zeichnen
             drawBlackSun();
 
-            // Schwarze Sonne Energie langsam verringern
             if (blackSun.energy > 0) {
                 blackSun.energy -= 0.005;
             }
@@ -415,6 +756,7 @@
             if (title && description) {
                 const fragment = new Fragment(title, description);
                 fragments.push(fragment);
+                maxFragments++;
                 fragmentForm.reset();
             }
         });
