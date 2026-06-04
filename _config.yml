@@ -4,3 +4,4 @@ theme: minima
 defaults:
 - scope: path: "_drafts"
 values: published: false
+  yaml<br>header_pages:<br> - kategorien.md<br>
