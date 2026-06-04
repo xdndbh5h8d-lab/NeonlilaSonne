@@ -26,3 +26,12 @@ pointer-events: none; z-index: 9999;
 /* Low-Key Licht & schwere Outlines */
 img, blockquote, pre { border: 1px solid var(--border); box-shadow: 0 0 12px rgba(122,95,255,0.15); }
 
+
+css<br>.category-grid { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+<br>.category-grid h2 { margin-top: 2rem; border-bottom: 2px solid #2a1f3d; padding-bottom: 0.3rem; }
+<br>.category-grid ul { list-style: none; padding: 0; }
+<br>.category-grid li { margin: 0.6rem 0; padding: 0.4rem 0; border-bottom: 1px dashed #2a1f3d; }
+<br>.category-grid a { color: #7a5fff; font-weight: bold; }
+<br>.category-grid a:hover { color: #e0e0e0; text-shadow: 0 0 5px #7a5fff; }
+<br>.category-grid small { color: #888; margin-left: 0.5rem; }
+<br>
