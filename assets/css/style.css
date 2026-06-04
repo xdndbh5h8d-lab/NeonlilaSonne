@@ -25,3 +25,5 @@ pointer-events: none; z-index: 9999;
 }
 /* Low-Key Licht & schwere Outlines */
 img, blockquote, pre { border: 1px solid var(--border); box-shadow: 0 0 12px rgba(122,95,255,0.15); }
+
+  yaml<br>header_pages:<br> - kategorien.md<br>
