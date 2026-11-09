@@ -6,12 +6,12 @@ permalink: /kategorien/
 
 <div class="category-grid">
 
-{% assign cat_list = "kunst,musik,rituale,occultes,ownmagic,wissenschaft,journal,blick durch die maske,verschwörungstheorien,paranoides Gedankengut,fakten,storys,persönliche-heilung" | split: "," %}
+{% assign cat_list = "kunst,musik,rituale,occultes,ownmagic,wissenschaft,journal,blick durch die maske,paranoides Gedankengut,fakten,storys,"persönliche-heilung", Gasmaske, Über-Ich, dasEndeIstNah, Schwarze Sonne, Verschmelzung| split: "," %}
 
 {% for cat in cat_list %}
  {% assign posts = site.categories[cat] %}
  {% if posts.size > 0 %}
- <h2 id="{{ cat }}">{{ cat | replace: "kunst", "Kunst & Deutschrap" | replace: "rituale", "Rituale & Praxis" | replace: "wissenschaft", "Psychologie & Wissenschaft" | replace: "journal", "Doku & Journal" | replace: "blick durch die maske", "Blick durch die Maske" | replace: "persönliche-heilung", "🌱 Persönliche Heilung & Überleben" }}
+ <h2 id="{{ cat }}">{{ cat | replace: "kunst", "Dichter und Denker" | replace: "rituale", "Magic World" | replace: "Kosmonauten" | replace: "journal", "Dokumentation schleichendes Gift" | replace: "blick durch die maske", "Blick durch die Maske" | replace: "persönliche-heilung", "🌱Gasmaske" }}
  </h2>
  <ul>
  {% for post in posts %}
