@@ -1,7 +1,12 @@
-title: "Mein Blog"
+title: "NeonlilaSonne"
 description: "Notizen, Strukturen, Praxis"
 theme: minima
+
 defaults:
-- scope: path: "_drafts"
-values: published: false
-  yaml<br>header_pages:<br> - kategorien.md<br>
+  - scope:
+      path: "_drafts"
+    values:
+      published: false
+
+header_pages:
+  - kategorien.md
