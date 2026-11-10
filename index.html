@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spiegelkabinett - Zerbrochene Realität</title>
+    <title>Jacqueline Werther - Spiegelkabinett & Chaos</title>
+    
+    <!-- Fonts kombinieren -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
+        /* --- GLOBALE VARIABLEN & RESET --- */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-blog: #0F0F10;
+            --text: #F5F4EF;
+            --accent: #00E5FF;
+            --accent-warm: #FF5A5F;
+            --lime: #C6FF00;
+            --gold: #ffc800;
+            --shadow: 0 10px 30px rgba(0,0,0,.75);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,24 +30,34 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-blog);
+            color: var(--text);
             min-height: 100vh;
+            overflow-x: hidden; /* Verhindert horizontales Scrollen */
+        }
+
+        /* --- TEIL 1: SPIEGELKABINETT (HERO) --- */
+        #mirror-cabinet-section {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Volle Bildschirmhöhe für den Einstieg */
             overflow: hidden;
-            color: #fff;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
         }
 
         #canvas {
             display: block;
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
         }
 
-        .container {
-            position: fixed;
+        .mc-container {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -85,8 +113,9 @@
             box-shadow: 0 0 30px rgba(255, 200, 0, 0.6);
         }
 
+        /* UI Panels im Mirror Cabinet */
         .ui-panel {
-            position: fixed;
+            position: absolute;
             bottom: 30px;
             left: 30px;
             background: rgba(0, 0, 0, 0.8);
@@ -110,6 +139,7 @@
             margin-bottom: 15px;
             font-size: 1.3em;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            color: var(--text);
         }
 
         .add-fragment-form {
@@ -118,8 +148,7 @@
             gap: 10px;
         }
 
-        input[type="text"],
-        textarea {
+        input[type="text"], textarea {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
@@ -129,12 +158,7 @@
             font-size: 0.9em;
         }
 
-        input[type="text"]::placeholder,
-        textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        button {
+        button.mc-btn {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
             color: white;
             border: none;
@@ -145,13 +169,13 @@
             transition: all 0.3s;
         }
 
-        button:hover {
+        button.mc-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
         }
 
         .info-panel {
-            position: fixed;
+            position: absolute;
             top: 30px;
             right: 30px;
             background: rgba(0, 0, 0, 0.8);
@@ -173,18 +197,12 @@
 
         .info-panel h3 {
             margin-bottom: 10px;
-            color: #ffc800;
+            color: var(--gold);
             text-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
         }
 
-        .info-text {
-            font-size: 0.9em;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-
         .legend {
-            position: fixed;
+            position: absolute;
             bottom: 30px;
             right: 30px;
             background: rgba(0, 0, 0, 0.8);
@@ -217,53 +235,21 @@
             border-radius: 50%;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.8)); }
-            50% { filter: drop-shadow(0 0 40px rgba(255, 200, 0, 1)); }
-        }
-
-        @keyframes vortex {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes warp-in {
-            0% { 
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% { 
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .sun-full {
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        h1 {
-            position: fixed;
+        h1.mc-title {
+            position: absolute;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 100;
             font-size: 2em;
             text-shadow: 0 0 20px rgba(255, 200, 0, 0.8);
-            color: #ffc800;
+            color: var(--gold);
             pointer-events: none;
             transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        h1.hidden {
+        h1.mc-title.hidden {
             opacity: 0;
             pointer-events: none;
         }
@@ -294,7 +280,7 @@
             text-shadow: 0 0 30px rgba(255, 200, 0, 0.9);
         }
 
-        /* New Reality Screen */
+        /* New Reality Screen (Overlay über allem) */
         #newReality {
             position: fixed;
             top: 0;
@@ -303,7 +289,7 @@
             height: 100%;
             background: linear-gradient(135deg, #000 0%, #1a1a3e 50%, #0a0a2e 100%);
             display: none;
-            z-index: 1001;
+            z-index: 2000; /* Sehr hoch, um alles abzudecken */
             overflow: hidden;
             opacity: 0;
             transition: opacity 1s ease-out;
@@ -408,7 +394,7 @@
         }
 
         .sun-ready {
-            position: fixed;
+            position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
@@ -431,7 +417,7 @@
         }
 
         .sun-ready-text {
-            color: #ffc800;
+            color: var(--gold);
             font-weight: bold;
             font-size: 1.1em;
             text-shadow: 0 0 10px rgba(255, 200, 0, 0.8);
@@ -442,83 +428,745 @@
             font-size: 0.9em;
             margin-top: 8px;
         }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.8)); }
+            50% { filter: drop-shadow(0 0 40px rgba(255, 200, 0, 1)); }
+        }
+
+        @keyframes vortex {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes warp-in {
+            0% { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* --- TEIL 2: ORGANISIERTES CHAOS (BLOG) --- */
+        .page {
+            padding: 2rem clamp(1rem, 3vw, 3rem) 4rem;
+            position: relative;
+            background-color: var(--bg-blog); /* Sicherstellen, dass der Hintergrund passt */
+            z-index: 50; /* Über dem Canvas, aber unter Modals */
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', 'Bebas Neue', system-ui;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin: 0 0 0.5rem;
+        }
+
+        p {
+            line-height: 1.6;
+            margin: 0 0 1rem;
+            font-size: 1rem;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 1.6rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            background: rgba(0, 0, 0, 0.6);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0, 229, 255, 0.35);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(255, 90, 95, 0.1), rgba(0, 229, 255, .05));
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: 'FLUX';
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 4rem;
+            color: rgba(255, 90, 95, 0.25);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            max-width: 36ch;
+        }
+
+        .hero small {
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.2em;
+            color: var(--lime);
+        }
+
+        .hero-note {
+            border-left: 3px solid var(--accent);
+            padding-left: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::after {
+            content: '---';
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            position: absolute;
+            right: -3rem;
+            top: 0.5rem;
+        }
+
+        .chaos-feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+        }
+
+        .feed-card {
+            background: rgba(245, 244, 239, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1rem;
+            min-height: 180px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .4s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .feed-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 90, 95, 0.2), transparent);
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .feed-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .feed-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .feed-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .shuffle {
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            background: var(--accent);
+            color: #0F0F10;
+            border: none;
+            font-weight: 700;
+            padding: 0.6rem 1.3rem;
+            border-radius: 999px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shuffle::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.4), transparent 45%);
+            opacity: 0;
+            transition: opacity .4s ease;
+        }
+
+        .shuffle:hover::after {
+            opacity: 1;
+        }
+
+        .timeline {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: 'fäden & timeline';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        .timeline-grid {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .thread {
+            flex: 1;
+            min-width: 220px;
+            border-left: 2px dashed var(--accent-warm);
+            padding-left: 1rem;
+        }
+
+        .thread h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .thread ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .switcher {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .slider-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .slider-wrap input {
+            width: 100%;
+            accent-color: var(--accent);
+        }
+
+        .slider-wrap::after {
+            content: 'Wahrheitsskala';
+            position: absolute;
+            top: -1.6rem;
+            left: 0;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--lime);
+        }
+
+        .map {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-nodes {
+            position: relative;
+            min-height: 260px;
+        }
+
+        .node {
+            position: absolute;
+            padding: 0.5rem 0.9rem;
+            background: rgba(0, 229, 255, 0.15);
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            cursor: grab;
+            transition: transform .2s ease;
+        }
+
+        .node:active {
+            cursor: grabbing;
+        }
+
+        .node::after {
+            content: '↗';
+            margin-left: 0.4rem;
+            transform: scale(0.7);
+        }
+
+        .map-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(0deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08), transparent 35%);
+            background-size: 60px 60px, 400px 400px;
+            pointer-events: none;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .meta-card {
+            background: rgba(245, 244, 239, 0.06);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meta-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(255, 90, 95, 0.15), transparent 60%);
+            pointer-events: none;
+        }
+
+        .note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .highlight-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .highlight-card span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+        }
+
+        .newsletter form,
+        .contact form,
+        .archive form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .newsletter input,
+        .contact input,
+        .contact textarea,
+        .archive input {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text);
+            padding: 0.8rem;
+            border-radius: 0.6rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .newsletter button,
+        .contact button,
+        .archive button {
+            border: none;
+            background: var(--accent);
+            color: #0F0F10;
+            padding: 0.8rem 1.2rem;
+            font-weight: 700;
+            border-radius: 0.6rem;
+            cursor: pointer;
+            transition: transform .3s ease;
+        }
+
+        .newsletter button:hover,
+        .contact button:hover,
+        .archive button:hover {
+            transform: translateY(-2px);
+        }
+
+        .tags {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .tag {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.4rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background .3s ease;
+        }
+
+        .tag:hover {
+            background: rgba(0, 229, 255, 0.15);
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .timeline-grid {
+                flex-direction: column;
+            }
+            .switcher {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>🪞 Spiegelkabinett - Zerbrochene Realität</h1>
-    
-    <canvas id="canvas"></canvas>
-    
-    <div class="container" id="container"></div>
 
-    <div class="info-panel">
-        <h3>✨ Willkommen</h3>
-        <div class="info-text">
-            <p>Dies ist dein persönliches Spiegelkabinett. Jede Scherbe stellt eine Kategorie deiner Realität dar.</p>
-            <p style="margin-top: 10px;"><strong>Erkunde</strong> die Fragmente und beobachte, wie sie sich verbinden - das Spinnennetz wird zur schwarzen Sonne! ☀️</p>
-            <p style="margin-top: 10px; font-size: 0.8em; opacity: 0.7;">Wenn die Schwarze Sonne vollständig entwickelt ist, betritt ihr Energiefeld und gelange in eine neue Realität frei von Illusionen...</p>
-        </div>
-    </div>
+    <!-- TEIL 1: SPIEGELKABINETT -->
+    <div id="mirror-cabinet-section">
+        <h1 class="mc-title">🪞 Spiegelkabinett - Zerbrochene Realität</h1>
+        
+        <canvas id="canvas"></canvas>
+        
+        <div class="mc-container" id="container"></div>
 
-    <div class="ui-panel">
-        <h2>➕ Neue Scherbe</h2>
-        <form class="add-fragment-form" id="fragmentForm">
-            <input type="text" id="fragmentTitle" placeholder="Titel der Kategorie" required>
-            <textarea id="fragmentDescription" placeholder="Beschreibung..." rows="3" required></textarea>
-            <button type="submit">Scherbe hinzufügen</button>
-        </form>
-    </div>
-
-    <div class="legend">
-        <div class="legend-item">
-            <div class="legend-color" style="background: rgba(255, 100, 100, 0.6);"></div>
-            <span>Spiegelscherben (Kategorien)</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color" style="background: rgba(100, 150, 255, 0.4);"></div>
-            <span>Verbindungen (Spinnennetz)</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color" style="background: #ffc800;"></div>
-            <span>Schwarze Sonne (Ganzheit)</span>
-        </div>
-    </div>
-
-    <div class="sun-ready" id="sunReady">
-        <div class="sun-ready-text">⚡ Die Schwarze Sonne ist vollständig entwickelt!</div>
-        <div class="sun-ready-hint">Klicke auf die Sonne, um die neue Realität zu betreten...</div>
-    </div>
-
-    <div id="realityPortal">
-        <div class="portal-content">
-            ✨ Betritt das Energiefeld der Schwarzen Sonne... ✨
-        </div>
-    </div>
-
-    <div id="newReality">
-        <div class="reality-content">
-            <div class="reality-title">∞ Fraktale Einheit ∞</div>
-            
-            <div class="reality-description">
-                Du hast die Illusion durchdrungen.<br>
-                Die zerbrochenen Spiegel sind vereinigt.<br>
-                <strong>Dies ist die wahre Realität - frei von Illusionen.</strong>
+        <div class="info-panel">
+            <h3>✨ Willkommen</h3>
+            <div class="info-text">
+                <p>Dies ist dein persönliches Spiegelkabinett. Jede Scherbe stellt eine Kategorie deiner Realität dar.</p>
+                <p style="margin-top: 10px;"><strong>Erkunde</strong> die Fragmente und beobachte, wie sie sich verbinden - das Spinnennetz wird zur schwarzen Sonne! ☀️</p>
+                <p style="margin-top: 10px; font-size: 0.8em; opacity: 0.7;">Wenn die Schwarze Sonne vollständig entwickelt ist, betritt ihr Energiefeld und gelange in eine neue Realität frei von Illusionen...</p>
             </div>
+        </div>
 
-            <div class="fractal-unity">
-                <div class="center-point"></div>
+        <div class="ui-panel">
+            <h2>➕ Neue Scherbe</h2>
+            <form class="add-fragment-form" id="fragmentForm">
+                <input type="text" id="fragmentTitle" placeholder="Titel der Kategorie" required>
+                <textarea id="fragmentDescription" placeholder="Beschreibung..." rows="3" required></textarea>
+                <button type="submit" class="mc-btn">Scherbe hinzufügen</button>
+            </form>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: rgba(255, 100, 100, 0.6);"></div>
+                <span>Spiegelscherben (Kategorien)</span>
             </div>
-
-            <div class="reality-description" style="font-size: 1.1em; margin-top: 40px;">
-                Die Schwarze Sonne vereint alle Fragmente deiner Wahrnehmung<br>
-                zu einer vollständigen Ganzheit.
+            <div class="legend-item">
+                <div class="legend-color" style="background: rgba(100, 150, 255, 0.4);"></div>
+                <span>Verbindungen (Spinnennetz)</span>
             </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ffc800;"></div>
+                <span>Schwarze Sonne (Ganzheit)</span>
+            </div>
+        </div>
 
-            <button class="return-button" onclick="returnToReality()">← Zurück zur Fragmentierten Realität</button>
+        <div class="sun-ready" id="sunReady">
+            <div class="sun-ready-text">⚡ Die Schwarze Sonne ist vollständig entwickelt!</div>
+            <div class="sun-ready-hint">Klicke auf die Sonne, um die neue Realität zu betreten...</div>
+        </div>
+
+        <div id="realityPortal">
+            <div class="portal-content">
+                ✨ Betritt das Energiefeld der Schwarzen Sonne... ✨
+            </div>
+        </div>
+
+        <div id="newReality">
+            <div class="reality-content">
+                <div class="reality-title">∞ Fraktale Einheit ∞</div>
+                
+                <div class="reality-description">
+                    Du hast die Illusion durchdrungen.<br>
+                    Die zerbrochenen Spiegel sind vereinigt.<br>
+                    <strong>Dies ist die wahre Realität - frei von Illusionen.</strong>
+                </div>
+
+                <div class="fractal-unity">
+                    <div class="center-point"></div>
+                </div>
+
+                <div class="reality-description" style="font-size: 1.1em; margin-top: 40px;">
+                    Die Schwarze Sonne vereint alle Fragmente deiner Wahrnehmung<br>
+                    zu einer vollständigen Ganzheit.
+                </div>
+
+                <button class="return-button" onclick="returnToReality()">← Zurück zur Fragmentierten Realität</button>
+            </div>
         </div>
     </div>
 
+    <!-- TEIL 2: ORGANISIERTES CHAOS (BLOG CONTENT) -->
+    <div class="page">
+        <section class="hero">
+            <div class="hero-content">
+                <small>Life & Fiction</small>
+                <h1>Absolut kein Plan. Nur Stories.</h1>
+                <p>Ein halb reales Tagebuch, halb spekulativer Zettelkasten. Chaos an der Oberfläche — darunter ein vernetztes Netz aus Motiven, Menschen und Parallelwelten.</p>
+                <a class="cta" href="#chaos-feed">Eintauchen</a>
+            </div>
+            <div class="hero-note">
+                <p>Notizen, Beweisfotos, verschwommene Tagebucheinträge, Audio-Samples, Skizzen vom Rand der Wirklichkeit.</p>
+            </div>
+        </section>
+
+        <section id="chaos-feed">
+            <h2>Chaos-Feed</h2>
+            <button class="shuffle" type="button" id="shuffleButton">Shuffle-Mode</button>
+            <div class="chaos-feed" id="feedGrid">
+                <article class="feed-card"><span class="feed-meta">[Text]</span><h3>Stadtsplitter</h3><p>Halb erwachte Erinnerungen an eine fahrende Tram, laut schnatternde Stimmen, ein Polaroid, das sich selbst entfaltet.</p></article>
+                <article class="feed-card"><span class="feed-meta">[Audio]</span><h3>Flüstern 47</h3><p>Ein 12-Sekunden-Loop aus dem Taxi zwischen Prenzlauer Berg und einem verlassenen Filmset.</p></article>
+                <article class="feed-card"><span class="feed-meta">[Foto]</span><h3>Lampe mit Schatten</h3><p>Perihel auf Papier — ein Polaroid mit Corners, Kratzern und einer klaren Notiz: „Was, wenn es echt war?“</p></article>
+                <article class="feed-card"><span class="feed-meta">[Story]</span><h3>Rhythmus der Grillen</h3><p>Ein Mini-Story-Clip: Die einzige Zeugin ist der Mauerpark, die Zeitleiste ist eine Notiz in Neon.</p></article>
+                <article class="feed-card"><span class="feed-meta">[Sketch]</span><h3>Verknotete Linien</h3><p>Eine Collage aus Tape, Skizzen, Wäscheklammern. Alles verbindet sich zu einem Gefühl von Nähe.</p></article>
+                <article class="feed-card"><span class="feed-meta">[Protokoll]</span><h3>Logbuch 09</h3><p>Dezente Hinweise darauf, welches Detail real ist und welches konstruiert für die Spannung.</p></article>
+            </div>
+        </section>
+
+        <section class="timeline">
+            <h2>Story-Fäden & Timelines</h2>
+            <div class="filter-chip" data-filter="reality">real</div>
+            <div class="filter-chip" data-filter="fiction">fiction</div>
+            <div class="filter-chip" data-filter="hybrid">hybrid</div>
+            <div class="timeline-grid">
+                <div class="thread">
+                    <h3>Realer Strang</h3>
+                    <ul>
+                        <li>April — Nachtzug & Noten</li>
+                        <li>Mai — Archivinstallation</li>
+                        <li>Juni — Mixed-Media-Performance</li>
+                    </ul>
+                </div>
+                <div class="thread">
+                    <h3>Fiktive Linie</h3>
+                    <ul>
+                        <li>Parallelgesellschaft „Wilder Nord“</li>
+                        <li>Fragmentierte Botschaften aus einer Metrostation</li>
+                        <li>Geistige Karte mit Neon-Wegpunkten</li>
+                    </ul>
+                </div>
+                <div class="thread">
+                    <h3>Zwischenräume</h3>
+                    <ul>
+                        <li>Tonband mit Raumgeräuschen</li>
+                        <li>Persona „Lila“ schreibt Emails</li>
+                        <li>Notiz: „Was war zuletzt echt?“</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="switcher">
+                <div>
+                    <h2>Reality / Fiction Switch</h2>
+                    <p>Schieberegler dehnt oder verengt den Fokus auf Ebene der Wahrheit. Layer öffnen sich, Quellen oder Hinweise auf Narrative.</p>
+                </div>
+                <div class="slider-wrap">
+                    <input type="range" id="truthSlider" min="0" max="100" value="45">
+                </div>
+            </div>
+            <div class="meta">
+                <div class="meta-card">
+                    <h3>Layer</h3>
+                    <p class="note">0 — pure Fiction / 100 — dokumentierter Realismus</p>
+                    <p id="sliderValue">Aktueller Fokus: 45</p>
+                </div>
+                <div class="meta-card">
+                    <h3>Layer-Notizen</h3>
+                    <p>Bei <span class="note">70+</span> erscheinen Quellenverweise, Audio-Logs, minimalistische Transkriptionen. Darunter flackern fiktive Doodles in Acid Lime.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="map">
+            <h2>Themen-Karte</h2>
+            <p>Dragbare Nodes verknüpfen Orte, Motive, Personen und Stimmungen.</p>
+            <div class="map-nodes" id="mapNodes">
+                <div class="node" style="top:20%;left:15%;">Berlin Echo</div>
+                <div class="node" style="top:40%;left:55%;">Nocturne</div>
+                <div class="node" style="top:70%;left:30%;">Polaroid-Archiv</div>
+                <div class="node" style="top:60%;left:70%;">Fiktive Sphäre</div>
+                <div class="node" style="top:25%;left:75%;">Persona Lila</div>
+            </div>
+            <div class="map-overlay"></div>
+        </section>
+
+        <section>
+            <h2>Über mich / uns</h2>
+            <div class="meta">
+                <div class="meta-card">
+                    <h3>Autorenschaft</h3>
+                    <p>Ich bin ein Bündel aus realen Begehungen, hypothetischen Notizen und gefundenen Fragmenten. Die Ethik: Transparenz, Hinweis auf Fiktion und Respekt für echte Stimmen.</p>
+                </div>
+                <div class="meta-card">
+                    <h3>Was echt ist</h3>
+                    <p>Fotos, Interviews, Tonaufnahmen sind echt — markiert mit <span class="note">#Echt</span>. Spekulative Essays, Doodles, anonyme Briefe tragen <span class="note">#Fiktion</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Highlights & Rabbit Holes</h2>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <span>Deep Dive</span>
+                    <h3>Verlorene Karten</h3>
+                    <p>Eine Kuratierung von Tracks, kleinen Recherche-Notizen und Glitch-Animationen.</p>
+                </div>
+                <div class="highlight-card">
+                    <span>Random Trip</span>
+                    <h3>Rabbit Hole</h3>
+                    <p>Zufallsreise in einen noch nicht veröffentlichten Thread.</p>
+                </div>
+                <div class="highlight-card">
+                    <span>Easter Egg</span>
+                    <h3>Glitch-Post</h3>
+                    <p>Versteckte Nachricht im Hintergrundrauschen — klickbar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <h2>Newsletter & Subscribe</h2>
+            <p>Trage dich ein und erhalte Signale, RSS-Updates und benachrichtigende Traumfragmente.</p>
+            <form>
+                <input type="email" placeholder="E-Mail-Adresse" required>
+                <input type="text" placeholder="Alias / Codewort">
+                <button type="submit">Signale einschalten</button>
+            </form>
+        </section>
+
+        <section class="contact">
+            <h2>Kontakt & Kollaboration</h2>
+            <p>Ideen, Gastbeiträge, gemeinsame Experimente? Sag hallo.</p>
+            <form>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Mail" required>
+                <textarea rows="3" placeholder="Projekt, Frage, Ko-Produktion"></textarea>
+                <button type="submit">Senden</button>
+            </form>
+            <p class="note">Socials: @fluxnotes / Guest Post öffnen wir per Anfrage.</p>
+        </section>
+
+        <section class="archive">
+            <h2>Archiv & Tags</h2>
+            <form>
+                <input type="search" placeholder="Suche im Archiv">
+                <button type="submit">Filtern</button>
+            </form>
+            <div class="tags">
+                <span class="tag">#Berlin</span>
+                <span class="tag">#NocturnalSounds</span>
+                <span class="tag">#Polaroid</span>
+                <span class="tag">#Chronik</span>
+                <span class="tag">#Fiktion</span>
+                <span class="tag">#Realitätsmonitor</span>
+                <span class="tag">#Audio</span>
+                <span class="tag">#Glitch</span>
+                <span class="tag">#Collage</span>
+            </div>
+        </section>
+
+        <footer>
+            <div>
+                <p>Recht & Hinweise:</p>
+                <p>Urheberrecht © 2024. Sensible Inhalte als Hinweis gekennzeichnet. Datenschutz konform — keine Tracking-Bomben.</p>
+            </div>
+            <div>
+                <p>Archive & Struktur: Transparente Filter, Datum, Serien, Radial Search.</p>
+            </div>
+            <div>
+                <p>Responsive Chaos: Mobiles Layout, Tablet-Grid, Desktop-Collage.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT LOGIK -->
     <script>
+        // --- LOGIK FÜR SPIEGELKABINETT ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const container = document.getElementById('container');
@@ -527,8 +1175,18 @@
         const newReality = document.getElementById('newReality');
         const sunReady = document.getElementById('sunReady');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Canvas Größe anpassen an den Container, nicht das ganze Fenster
+        function resizeCanvas() {
+            const section = document.getElementById('mirror-cabinet-section');
+            canvas.width = section.offsetWidth;
+            canvas.height = section.offsetHeight;
+            // Schwarze Sonne neu zentrieren
+            blackSun.x = canvas.width / 2;
+            blackSun.y = canvas.height / 2;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Initial aufrufen
 
         let fragments = [];
         let connections = [];
@@ -541,9 +1199,8 @@
             isClickable: false 
         };
         let exploredCount = 0;
-        let maxFragments = 5; // Initiale Anzahl
+        let maxFragments = 5; 
 
-        // Fragment Klasse
         class Fragment {
             constructor(title, description) {
                 this.title = title;
@@ -585,17 +1242,13 @@
                 exploredCount++;
                 this.element.classList.add('active');
                 
-                // Erstelle neue Verbindungen zu anderen Fragmenten
                 fragments.forEach(fragment => {
                     if (fragment !== this && Math.random() > 0.5) {
                         connections.push(new Connection(this, fragment));
                     }
                 });
 
-                // Stärke die schwarze Sonne
                 blackSun.energy = Math.min(exploredCount / maxFragments * blackSun.maxEnergy, blackSun.maxEnergy);
-
-                // Überprüfe ob Schwarze Sonne vollständig ist
                 checkSunFullyDeveloped();
             }
 
@@ -612,7 +1265,6 @@
             }
         }
 
-        // Connection Klasse - Spinnennetz zu schwarzer Sonne
         class Connection {
             constructor(from, to) {
                 this.from = from;
@@ -639,7 +1291,6 @@
             }
         }
 
-        // Schwarze Sonne zeichnen
         function drawBlackSun() {
             const gradient = ctx.createRadialGradient(blackSun.x, blackSun.y, 0, blackSun.x, blackSun.y, blackSun.radius);
             gradient.addColorStop(0, `rgba(255, 200, 0, ${0.8 + blackSun.energy * 0.2})`);
@@ -659,7 +1310,6 @@
                 ctx.stroke();
             }
 
-            // Wenn vollständig entwickelt, mache sie klickbar
             if (blackSun.isClickable) {
                 ctx.strokeStyle = `rgba(255, 200, 0, 0.6)`;
                 ctx.lineWidth = 2;
@@ -669,21 +1319,18 @@
             }
         }
 
-        // Überprüfe ob Schwarze Sonne vollständig ist
         function checkSunFullyDeveloped() {
             if (exploredCount >= maxFragments && !blackSun.isClickable) {
                 blackSun.isClickable = true;
-                document.querySelector('h1').textContent = '🪞 Spiegelkabinett - Neue Realität wartet';
+                document.querySelector('.mc-title').textContent = '🪞 Spiegelkabinett - Neue Realität wartet';
                 sunReady.classList.add('visible');
                 
-                // Verstecke UI-Elemente
                 document.querySelector('.info-panel').classList.add('hidden');
                 document.querySelector('.ui-panel').classList.add('hidden');
                 document.querySelector('.legend').classList.add('hidden');
             }
         }
 
-        // Canvas Click Handler für Schwarze Sonne
         canvas.addEventListener('click', (e) => {
             if (!blackSun.isClickable) return;
 
@@ -701,15 +1348,14 @@
             }
         });
 
-        // Betritt die neue Realität
         function enterNewReality() {
             realityPortal.classList.add('active');
             
             setTimeout(() => {
                 realityPortal.classList.remove('active');
                 canvas.style.display = 'none';
-                document.querySelector('.container').style.display = 'none';
-                document.querySelector('h1').classList.add('hidden');
+                document.querySelector('.mc-container').style.display = 'none';
+                document.querySelector('.mc-title').classList.add('hidden');
                 sunReady.classList.remove('visible');
                 
                 newReality.classList.add('active');
@@ -719,20 +1365,18 @@
             }, 2000);
         }
 
-        // Zurück zur fragmentierten Realität
         function returnToReality() {
             newReality.classList.remove('visible');
             
             setTimeout(() => {
                 newReality.classList.remove('active');
                 canvas.style.display = 'block';
-                document.querySelector('.container').style.display = 'block';
-                document.querySelector('h1').classList.remove('hidden');
+                document.querySelector('.mc-container').style.display = 'block';
+                document.querySelector('.mc-title').classList.remove('hidden');
                 sunReady.classList.add('visible');
             }, 500);
         }
 
-        // Animation Loop
         function animate() {
             ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -747,7 +1391,6 @@
             requestAnimationFrame(animate);
         }
 
-        // Fragment hinzufügen
         fragmentForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const title = document.getElementById('fragmentTitle').value;
@@ -768,16 +1411,93 @@
         fragments.push(new Fragment('Gefühle', 'Emotionale Wahrnehmung'));
         fragments.push(new Fragment('Erinnerungen', 'Fragmente der Vergangenheit'));
 
-        // Fenster-Resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            blackSun.x = canvas.width / 2;
-            blackSun.y = canvas.height / 2;
+        animate();
+
+
+        // --- LOGIK FÜR BLOG TEIL ---
+        const feedGrid = document.getElementById('feedGrid');
+        const shuffleButton = document.getElementById('shuffleButton');
+        const slider = document.getElementById('truthSlider');
+        const sliderValue = document.getElementById('sliderValue');
+        const nodes = document.querySelectorAll('.node');
+
+        shuffleButton.addEventListener('click', () => {
+            const cards = [...feedGrid.children];
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                feedGrid.appendChild(cards[j]);
+                cards.splice(j, 1);
+            }
+            feedGrid.classList.add('shuffled');
+            setTimeout(() => feedGrid.classList.remove('shuffled'), 400);
         });
 
-        // Animation starten
-        animate();
+        slider.addEventListener('input', () => {
+            sliderValue.textContent = 'Aktueller Fokus: ' + slider.value;
+            sliderValue.style.color = (slider.value > 70 ? '#FF5A5F' : (slider.value < 30 ? '#C6FF00' : '#00E5FF'));
+        });
+
+        nodes.forEach(node => {
+            let isDragging = false;
+            let offsetX = 0;
+            let offsetY = 0;
+            
+            node.addEventListener('mousedown', e => {
+                isDragging = true;
+                offsetX = e.offsetX;
+                offsetY = e.offsetY;
+                node.style.transform = 'scale(1.02)';
+            });
+
+            document.addEventListener('mousemove', e => {
+                if (!isDragging) return;
+                const rect = node.parentElement.getBoundingClientRect();
+                let x = e.clientX - rect.left - offsetX;
+                let y = e.clientY - rect.top - offsetY;
+                const maxX = rect.width - node.offsetWidth;
+                const maxY = rect.height - node.offsetHeight;
+                x = Math.max(0, Math.min(x, maxX));
+                y = Math.max(0, Math.min(y, maxY));
+                node.style.left = `${(x / rect.width) * 100}%`;
+                node.style.top = `${(y / rect.height) * 100}%`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    node.style.transform = 'scale(1)';
+                }
+            });
+
+            node.addEventListener('touchstart', e => {
+                isDragging = true;
+                const touch = e.touches[0];
+                const rect = node.getBoundingClientRect();
+                offsetX = touch.clientX - rect.left;
+                offsetY = touch.clientY - rect.top;
+            });
+
+            document.addEventListener('touchmove', e => {
+                if (!isDragging) return;
+                const touch = e.touches[0];
+                const rect = node.parentElement.getBoundingClientRect();
+                let x = touch.clientX - rect.left - offsetX;
+                let y = touch.clientY - rect.top - offsetY;
+                const maxX = rect.width - node.offsetWidth;
+                const maxY = rect.height - node.offsetHeight;
+                x = Math.max(0, Math.min(x, maxX));
+                y = Math.max(0, Math.min(y, maxY));
+                node.style.left = `${(x / rect.width) * 100}%`;
+                node.style.top = `${(y / rect.height) * 100}%`;
+            });
+
+            document.addEventListener('touchend', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    node.style.transform = 'scale(1)';
+                }
+            });
+        });
     </script>
 </body>
 </html>
