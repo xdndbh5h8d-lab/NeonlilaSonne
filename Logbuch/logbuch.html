@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logbuch — Organisiertes Chaos</title>
+  <style>
+    :root {
+      --bg: #0F0F10;
+      --text: #F5F4EF;
+      --accent: #00E5FF;
+      --accent-warm: #FF5A5F;
+      --lime: #C6FF00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 2rem clamp(1rem, 4vw, 3rem);
+    }
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    h1, h2 {
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 0.8rem;
+    }
+    li {
+      border-left: 2px solid var(--accent);
+      padding-left: 0.9rem;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1rem;
+      border: 1px solid var(--accent);
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Logbuch</h1>
+
+    <div class="card">
+      <h2>Einträge</h2>
+      <ul>
+        <li><a href="log-01.html">Log 01 — Die erste Spur</a></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Quellen</h2>
+      <p>Markdown-Quelle: <a href="log-01.md">log-01.md</a></p>
+    </div>
+
+    <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+  </div>
+</body>
+</html>
