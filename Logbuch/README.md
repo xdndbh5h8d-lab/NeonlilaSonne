@@ -1,0 +1,1 @@
+Tarotkartenlegungen als Entscheidungsgrundlage. Verschmelzung der inneren Gedankenwelt mit der energetischen Außenwelt
